@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Лаба 4</title>
+</head>
+<body>
+<style type="text/css">
+	.inp {
+		margin-left : 5px;
+		margin-right : 5px;
+		width : 3em;
+	} 
+</style>
+<h1 style="text-align: center;">Точкові статистичні оцінки основних числових параметрів випадкової величини </h1>
+<div style="margin-left: 150px;">
+	<button onclick="go()" id="but">Порахувати</button>
+</div>
+<br><br>
+<div id="result"></div>
+
+<script type="text/javascript">
+		let n = +prompt("Введіть кількість елементів","96");
+		let arr = [98, 92, 101, 102, 119, 129, 101, 124, 89, 96, 124, 100, 110, 97, 126, 101, 101, 102, 119, 129, 101, 124, 89, 96, 124, 100, 110, 97, 126, 101, 101, 119, 113, 101, 99, 93, 100, 113, 98, 128, 102, 113, 88, 97, 116, 97, 105, 113, 110, 102, 96, 119, 124, 112, 87, 98, 114, 125, 116, 102, 101, 129, 98, 129, 89, 125, 113, 101, 97, 92, 126, 129, 98, 113, 124, 100, 101, 91, 119, 101, 101, 125, 97, 110, 119, 93, 97, 88, 96, 92, 110, 113, 125, 87, 98, 129];
+		// let arrplus = [];
+		let elem = document.getElementById("but");
+		for(let i = 1; i <= n; i++){
+			let input = document.createElement('input');
+			input.type = 'number';
+			input.id = "key" + i;
+			input.className = "inp";
+			input.min = "1";
+			input.max = n;
+			input.title = "Число №"+i;
+			input.oninput = function(){
+				this.value = this.value.replace(/[^0-9]/g,'');
+			}
+			//input.value = arr[i - 1];
+			input.placeholder = i;
+			elem.insertAdjacentElement("beforeBegin",input);
+			}
+
+			let r = document.querySelectorAll(".inp");
+
+	function go(){
+		
+		let sum = 0;
+
+		for(let i = 0; i < n; i++){
+			sum += +r[i].value;
+			// arrplus[i] = sum;
+			result.innerHTML += sum + " "; 
+		}
+
+		result.innerHTML += "<br> x = "; 
+		let x = (1/n) * sum;
+		result.innerHTML += x; 
+		
+		result.innerHTML += "<br> S2 = ";
+
+		let S2 = function(){
+			let sum2 = 0;
+
+			for(let i = 0; i < n; i++){
+				sum2 += (+r[i].value) ** 2;
+			}
+
+			sum2 = sum2 - n * (x ** 2);
+			let S3 = (1/(n - 1)) * sum2;
+			
+			return S3;
+		};
+
+
+		result.innerHTML +=  S2();
+
+		result.innerHTML += "<br> S = ";
+		let S = Math.sqrt(S2());
+		result.innerHTML += S;
+
+		result.innerHTML += "<br> m2 = ";
+		let m2 = ((n - 1) / n) * S2();
+		result.innerHTML += m2;
+
+		result.innerHTML += "<br> Корінь з m2 = ";
+		let m3 = Math.sqrt(m2);
+		result.innerHTML += m3;
+
+		result.innerHTML += "<br> Med = ";
+		let med = (n + 1) / 2;
+		result.innerHTML += med;
+		// alert((med * 50) / 100);
+
+		result.innerHTML += "<br> Mod = ";
+		let mod = [97, 113];
+		result.innerHTML += mod[0] + ", " + mod[1];
+
+		result.innerHTML += "<br> 3(med - (2/3) * x) = ";
+		// alert(2 / 3);
+		// alert((2 / 3) * x);
+		// alert(med - ((2 / 3) * x));
+		// alert(x);
+		let rule = 3 * (med  - ((2 / 3) * x));
+		result.innerHTML += rule;
+	}
+	
+
+	</script>
+
+</body>
+</html>
